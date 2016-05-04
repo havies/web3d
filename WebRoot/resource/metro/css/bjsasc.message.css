@@ -1,0 +1,132 @@
+	.message_border {
+	    border: 1px solid #B7B7B7;
+	    padding: 9px 8px 8px;
+	    background: none repeat scroll 0% 0% #FFF;
+	}
+
+	.message_content {
+	    background: none repeat scroll 0% 0% #FFF;
+	}
+	.message_content .writein {
+	    color: #000;
+	}
+	.message_content textarea {
+	    width: 100%;
+	    height: 62px;
+	    border: 0px none;
+	    color: #AAA;
+	    font: 14px/22px Verdana,"宋体","新宋体",sans-serif;
+	    outline: 0px none;
+	    padding: 0px;
+	    margin: 0px;
+	    background: none repeat scroll 0% 0% #FFF;
+	    resize: none; 
+	    word-wrap: break-word;
+	}
+
+	.message_count {
+	    padding: 3px 0px;
+	    color: #AAA;
+	    text-align: right;
+	    font-size: 12px;
+	    line-height: 14px;
+	    font-family: Verdana,Arial;
+	}
+
+	.message_action{
+	    padding: 5px 10px;
+	    text-align: right;
+	    background-color: #F7F7F7;
+	    
+	}
+
+	.message_action ul {
+	    float: left;
+	    padding-top: 4px;
+	    padding-left: 1px;
+	    padding: 0px;
+	    margin: 0px;
+	    list-style: outside none none;
+	}
+
+	.message_action li {
+	    padding-bottom: 1px;
+	    float: left;
+	    display: inline;
+	    margin-right: 10px;
+	    font: 12px/14px "宋体","新宋体",sans-serif;
+	}
+
+	.message_action .action_button {
+	    padding: 3px 0px 3px 14px;
+	    background-image: url('../image/ico_pub.gif');
+	    background-repeat: no-repeat;
+	    display: inline-block;
+	    text-align: left;
+	    overflow: hidden;
+	    color: #AAA;
+	    text-decoration: none;
+	}
+
+	.file_icon .action_button {
+	    background-position: 0px -78px;
+	}
+
+	.at_icon .action_button {
+	    background-position: 0px -158px;
+	    padding-left: 19px;
+	}
+
+	.atall_icon .action_button {
+	    background-position: 0px -158px;
+	    padding-left: 19px;
+	}
+
+	.dropdown {
+	    padding-right: 12px;
+	    background: url('../image/ico_pub.gif') no-repeat scroll right -318px transparent;
+	    display: inline-block;
+	    margin-right: 10px;
+	    color: #666;
+	    vertical-align: middle;
+	    cursor: pointer;
+	    font: 12px/14px Verdana,"宋体","新宋体",sans-serif;
+	}
+
+	.dropdown i {
+	    font-style: normal;
+	    display: inline-block;
+	}
+
+	.disable_pub_cpsw {
+	    border: 1px solid #4797DE;
+	    cursor: pointer;
+	    background: -moz-linear-gradient(center top , #53A4EC, #509FE5) repeat scroll 0% 0% transparent;
+	}
+
+	.pub_cpsw {
+	    text-decoration: none;
+	    cursor: default;
+	    display: inline-block;
+	    vertical-align: middle;
+	    font: 14px/16px "宋体","新宋体",sans-serif;
+	    border: 1px solid #D9D9D9;
+	    background: -moz-linear-gradient(center top , #F7F7F7, #EEE) repeat scroll 0% 0% transparent;
+	}
+
+	.pub_cpsw b {
+	    display: block;
+	    font-weight: 400;
+	}
+
+	.disable_pub_cpsw i {
+	    color: #FFF;
+	}
+
+	.pub_cpsw i {
+	    display: block;
+	    font-style: normal;
+	    padding: 4px 15px;
+	    color: #C5C5C5;
+	}
+	

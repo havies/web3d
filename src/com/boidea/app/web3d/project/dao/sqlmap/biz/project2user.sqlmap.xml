@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- project2user管理手工映射SQL语句 -->
+<sqlMap namespace="project2user">
+	<typeAlias alias="dto" type="com.boidea.framework.core.metatype.impl.BaseDto"/>
+	
+	<!-- project2user-查询列表 -->
+	<select id="queryproject2usersForManage" parameterClass="map" resultClass="dto">
+		SELECT   
+		a.UUID as uuid,
+		a.ProjectID as projectid,
+		a.UserID as userid
+		    FROM project2user a
+		   WHERE 1 = 1
+		   	<isNotEmpty prepend="AND" property="uuid"> 
+				 a.UUID = #uuid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="projectid"> 
+				 a.ProjectID like '%$projectid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="userid"> 
+				 a.UserID like '%$userid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ruleCond"> 
+				 $ruleCond$
+			</isNotEmpty>
+			
+			<!-- 列的快速查询 begin-->
+			<dynamic prepend="and" open=" (" close=")">
+				<isNotEmpty prepend="OR" property="or_projectid"> 
+					 a.ProjectID like '%$or_projectid$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_userid"> 
+					 a.UserID like '%$or_userid$%'
+				</isNotEmpty>
+			</dynamic>
+			<!-- 列的快速查询 end-->
+	</select>
+	
+	<select id="queryproject2usersCountForManage" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		  FROM project2user a 
+		 WHERE 1 = 1
+			<isNotEmpty prepend="AND" property="uuid"> 
+				 a.UUID = #uuid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="projectid"> 
+				 a.ProjectID like '%$projectid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="userid"> 
+				 a.UserID like '%$userid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ruleCond"> 
+				 $ruleCond$
+			</isNotEmpty>
+			
+			<!-- 列的快速查询 begin-->
+			<dynamic prepend="and" open=" (" close=")">
+				<isNotEmpty prepend="OR" property="or_projectid"> 
+					 a.ProjectID like '%$or_projectid$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_userid"> 
+					 a.UserID like '%$or_userid$%'
+				</isNotEmpty>
+			</dynamic>
+			<!-- 列的快速查询 end-->
+	</select>
+	
+	<!-- 插入一条project2user表记录 -->
+	<insert id="saveproject2userItem" parameterClass="dto">
+		INSERT INTO project2user (
+			UUID,
+			ProjectID,
+			UserID
+		   ) 
+		VALUES (
+			#uuid#,
+			#projectid#,
+			#userid#
+		)
+	</insert>
+	
+	<!-- 根据主键删除project2user表  -->
+	<delete id="deleteproject2userItem" parameterClass="map" >
+		DELETE FROM project2user
+		WHERE
+			UUID = #uuid#
+	</delete>
+	
+	<!-- 根据主键更新project2user表 -->
+	<update id="updateproject2userItem" parameterClass="dto">
+         UPDATE project2user
+		<dynamic prepend="SET"> 
+            <isNotNull prepend="," property="uuid">
+            UUID = #uuid#
+            </isNotNull>
+            <isNotNull prepend="," property="projectid">
+            ProjectID = #projectid#
+            </isNotNull>
+            <isNotNull prepend="," property="userid">
+            UserID = #userid#
+            </isNotNull>
+		</dynamic> 
+	        WHERE 
+				UUID = #uuid#
+	</update>
+	
+</sqlMap>

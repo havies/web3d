@@ -1,0 +1,43 @@
+/*body{margin:0; padding:0; font-size:9pt;}
+#container{text-align:left;width:1000px;margin:0 auto;border:1px solid #333;background-color:#ccc;}*/
+body{text-align:center; width:100%;} 
+#container{text-align:left;margin:0 auto;}
+#login{margin:0 auto;width:974px;height:368px;margin-top:120px;}
+#top_left{width:690px; height:89px; float:left;}
+#top_left img {margin-left:0px;}
+#top_center{width:248px; height:89px; background:url(../image/login/login_05.gif); float:left;}
+
+#center_banner{width:430px; height:190px; float:left;}
+a { color: #538c9f; }
+a:hover { color: #84B263; }
+div.wrapper { width: 430px; margin: 0 auto; position: relative; }
+.fn-clear { zoom: 1; }
+.box_skitter { position: relative; background: none; }
+.box_skitter ul { display: none; }
+.box_skitter .container_skitter { overflow: hidden; position: relative; }
+.box_skitter .image { overflow: hidden; }
+.box_skitter .image img { display: none; }
+.box_skitter .box_clone { position: absolute; top: 0; left: 0; width: 100px; overflow: hidden; display: none; z-index: 20; }
+.box_skitter .box_clone img { position: absolute; top: 0; left: 0; z-index: 20; }
+.box_skitter .prev_button { position: absolute; top: 50%; left: -5px; z-index: 100; width: 30px; height: 50px; overflow: hidden; text-indent: -9999em; margin-top: -25px; background: url(../image/login/prev.gif) no-repeat left top !important; }
+.box_skitter .next_button { position: absolute; top: 50%; right: -5px; z-index: 100; width: 30px; height: 50px; overflow: hidden; text-indent: -9999em; margin-top: -25px; background: url(../image/login/next.gif) no-repeat left top !important; }
+.box_skitter .label_skitter { z-index: 150; position: absolute; display: none; }
+.loading { position: absolute; top: 50%; right: 50%; z-index: 10000; margin: -16px -16px; color: #fff; text-indent: -9999em; overflow: hidden; background: url(../image/login/ajax-loader.gif) no-repeat left top; width: 31px; height: 31px; }
+#slideshow { width: 430px; height: 190px; }
+#slideshow ul { display: none; }
+
+#center_left{width:260px; height:190px; background:url(../image/login/login_09.gif); float:left;}
+#center_middle{width:248px; height:190px; float:left; background:url(../image/login/login_13.gif) repeat-y;}
+#center_right{width:36px; height:190px; float:right; background:url(../image/login/login_11.gif);}
+
+#down_left{width:690px; height:89px; float:left; margin-top:15px;}
+#down_center{width:248px; height:89px; background:url(../image/login/login_16.gif); float:left;}
+#inf{width:690px; height:38px; background:url(../image/login/login_18.gif) no-repeat; }
+.inf_text{display:block; width:100px; height:20px; font-size:16px; font-weight:bolder; color:#fff; margin-left:17px; margin-top:12px; float:left;}
+.copyright{display:block; float:left; margin-left:17px; margin-top:15px;}
+
+/* #user{ margin-left:40px; margin-top:45px; height:25px;} */
+/* #password{margin-left:40px; margin-top:25px; height:25px;} */
+input{width:120px; height:18px; border:solid 1px #aca7a7; font-size:9pt;}
+#btn{margin-left:30px; margin-top:40px;height:25px; margin-right:28px; text-align:center;}
+#btn a{display:block; line-height:25px; background: url(../image/login/login_bt_bg.gif); border: solid 1px #b6b6b6; width:65px; float:left; margin-left:15px; text-decoration:none; color:#000;}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<!-- 业务系统的SQL映射文件装载 -->
+<sqlMapConfig>
+	<settings useStatementNamespaces="true" />
+
+	<sqlMap resource="com/boidea/app/common/dao/sqlmap/biz/GyCalendarEvent.sqlmap.xml" />
+	<sqlMap resource="com/boidea/app/common/dao/sqlmap/biz/GyInformation.sqlmap.xml" />
+    <sqlMap resource="com/boidea/app/common/dao/sqlmap/biz/GyInformationRole.sqlmap.xml" />
+    
+	<sqlMap resource="com/boidea/app/web3d/category/dao/sqlmap/biz/categorys.sqlmap.xml" />
+	<sqlMap resource="com/boidea/app/web3d/project/dao/sqlmap/biz/projects.sqlmap.xml" />
+	<sqlMap resource="com/boidea/app/web3d/project/dao/sqlmap/biz/project2user.sqlmap.xml" />
+	<sqlMap resource="com/boidea/app/web3d/product/dao/sqlmap/biz/products.sqlmap.xml" />
+	<sqlMap resource="com/boidea/app/web3d/product/dao/sqlmap/biz/materials.sqlmap.xml" />
+	<sqlMap resource="com/boidea/app/web3d/product/dao/sqlmap/biz/material2product.sqlmap.xml" />
+	<sqlMap resource="com/boidea/app/web3d/housestyle/dao/sqlmap/biz/housestyle.sqlmap.xml" />
+	<sqlMap resource="com/boidea/app/web3d/households/dao/sqlmap/biz/households.sqlmap.xml" />
+			
+</sqlMapConfig>

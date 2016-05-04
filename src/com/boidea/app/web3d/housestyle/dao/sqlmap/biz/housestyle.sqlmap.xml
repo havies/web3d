@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- housestyle管理手工映射SQL语句 -->
+<sqlMap namespace="housestyle">
+	<typeAlias alias="dto" type="com.boidea.framework.core.metatype.impl.BaseDto"/>
+	
+	<!-- housestyle-查询列表 -->
+	<select id="queryhousestylesForManage" parameterClass="map" resultClass="dto">
+		SELECT   
+		a.StyleID as styleid,
+		a.StyleName as stylename
+		    FROM housestyle a
+		   WHERE 1 = 1
+		   	<isNotEmpty prepend="AND" property="styleid"> 
+				 a.StyleID = #styleid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="stylename"> 
+				 a.StyleName like '%$stylename$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ruleCond"> 
+				 $ruleCond$
+			</isNotEmpty>
+			
+			<!-- 列的快速查询 begin-->
+			<dynamic prepend="and" open=" (" close=")">
+				<isNotEmpty prepend="OR" property="or_stylename"> 
+					 a.StyleName like '%$or_stylename$%'
+				</isNotEmpty>
+			</dynamic>
+			<!-- 列的快速查询 end-->
+	</select>
+	
+	<select id="queryhousestylesCountForManage" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		  FROM housestyle a 
+		 WHERE 1 = 1
+			<isNotEmpty prepend="AND" property="styleid"> 
+				 a.StyleID = #styleid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="stylename"> 
+				 a.StyleName like '%$stylename$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ruleCond"> 
+				 $ruleCond$
+			</isNotEmpty>
+			
+			<!-- 列的快速查询 begin-->
+			<dynamic prepend="and" open=" (" close=")">
+				<isNotEmpty prepend="OR" property="or_stylename"> 
+					 a.StyleName like '%$or_stylename$%'
+				</isNotEmpty>
+			</dynamic>
+			<!-- 列的快速查询 end-->
+	</select>
+	
+	<!-- 插入一条housestyle表记录 -->
+	<insert id="savehousestyleItem" parameterClass="dto">
+		INSERT INTO housestyle (
+			StyleID,
+			StyleName
+		   ) 
+		VALUES (
+			#styleid#,
+			#stylename#
+		)
+	</insert>
+	
+	<!-- 根据主键删除housestyle表  -->
+	<delete id="deletehousestyleItem" parameterClass="map" >
+		DELETE FROM housestyle
+		WHERE
+			StyleID = #styleid#
+	</delete>
+	
+	<!-- 根据主键更新housestyle表 -->
+	<update id="updatehousestyleItem" parameterClass="dto">
+         UPDATE housestyle
+		<dynamic prepend="SET"> 
+            <isNotNull prepend="," property="styleid">
+            StyleID = #styleid#
+            </isNotNull>
+            <isNotNull prepend="," property="stylename">
+            StyleName = #stylename#
+            </isNotNull>
+		</dynamic> 
+	        WHERE 
+				StyleID = #styleid#
+	</update>
+	
+</sqlMap>

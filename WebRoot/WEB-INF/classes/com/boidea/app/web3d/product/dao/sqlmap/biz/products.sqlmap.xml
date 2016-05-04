@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- products管理手工映射SQL语句 -->
+<sqlMap namespace="products">
+	<typeAlias alias="dto" type="com.boidea.framework.core.metatype.impl.BaseDto"/>
+	
+	<!-- products-查询列表 -->
+	<select id="queryproductssForManage" parameterClass="map" resultClass="dto">
+		SELECT   
+		a.ProductID as productid,
+		a.ProductName as productname,
+		a.CategoryID as categoryid,
+		a.StyleID as styleid,
+		a.Length as length,
+		a.Width as width,
+		a.Height as height,
+		a.AssetBundleName as assetbundlename,
+		a.AssetName as assetname
+		    FROM products a
+		   WHERE 1 = 1
+		   	<isNotEmpty prepend="AND" property="productid"> 
+				 a.ProductID = #productid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="productname"> 
+				 a.ProductName like '%$productname$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="categoryid"> 
+				 a.CategoryID like '%$categoryid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="styleid"> 
+				 a.StyleID like '%$styleid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="length"> 
+				 a.Length like '%$length$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="width"> 
+				 a.Width like '%$width$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="height"> 
+				 a.Height like '%$height$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="assetbundlename"> 
+				 a.AssetBundleName like '%$assetbundlename$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="assetname"> 
+				 a.AssetName like '%$assetname$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ruleCond"> 
+				 $ruleCond$
+			</isNotEmpty>
+			
+			<!-- 列的快速查询 begin-->
+			<dynamic prepend="and" open=" (" close=")">
+				<isNotEmpty prepend="OR" property="or_productname"> 
+					 a.ProductName like '%$or_productname$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_categoryid"> 
+					 a.CategoryID like '%$or_categoryid$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_styleid"> 
+					 a.StyleID like '%$or_styleid$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_length"> 
+					 a.Length like '%$or_length$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_width"> 
+					 a.Width like '%$or_width$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_height"> 
+					 a.Height like '%$or_height$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_assetbundlename"> 
+					 a.AssetBundleName like '%$or_assetbundlename$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_assetname"> 
+					 a.AssetName like '%$or_assetname$%'
+				</isNotEmpty>
+			</dynamic>
+			<!-- 列的快速查询 end-->
+	</select>
+	
+	<select id="queryproductssCountForManage" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		  FROM products a 
+		 WHERE 1 = 1
+			<isNotEmpty prepend="AND" property="productid"> 
+				 a.ProductID = #productid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="productname"> 
+				 a.ProductName like '%$productname$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="categoryid"> 
+				 a.CategoryID like '%$categoryid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="styleid"> 
+				 a.StyleID like '%$styleid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="length"> 
+				 a.Length like '%$length$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="width"> 
+				 a.Width like '%$width$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="height"> 
+				 a.Height like '%$height$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="assetbundlename"> 
+				 a.AssetBundleName like '%$assetbundlename$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="assetname"> 
+				 a.AssetName like '%$assetname$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ruleCond"> 
+				 $ruleCond$
+			</isNotEmpty>
+			
+			<!-- 列的快速查询 begin-->
+			<dynamic prepend="and" open=" (" close=")">
+				<isNotEmpty prepend="OR" property="or_productname"> 
+					 a.ProductName like '%$or_productname$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_categoryid"> 
+					 a.CategoryID like '%$or_categoryid$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_styleid"> 
+					 a.StyleID like '%$or_styleid$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_length"> 
+					 a.Length like '%$or_length$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_width"> 
+					 a.Width like '%$or_width$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_height"> 
+					 a.Height like '%$or_height$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_assetbundlename"> 
+					 a.AssetBundleName like '%$or_assetbundlename$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_assetname"> 
+					 a.AssetName like '%$or_assetname$%'
+				</isNotEmpty>
+			</dynamic>
+			<!-- 列的快速查询 end-->
+	</select>
+	
+	<!-- 插入一条products表记录 -->
+	<insert id="saveproductsItem" parameterClass="dto">
+		INSERT INTO products (
+			ProductID,
+			ProductName,
+			CategoryID,
+			StyleID,
+			Length,
+			Width,
+			Height,
+			AssetBundleName,
+			AssetName
+		   ) 
+		VALUES (
+			#productid#,
+			#productname#,
+			#categoryid#,
+			#styleid#,
+			#length#,
+			#width#,
+			#height#,
+			#assetbundlename#,
+			#assetname#
+		)
+	</insert>
+	
+	<!-- 根据主键删除products表  -->
+	<delete id="deleteproductsItem" parameterClass="map" >
+		DELETE FROM products
+		WHERE
+			ProductID = #productid#
+	</delete>
+	
+	<!-- 根据主键更新products表 -->
+	<update id="updateproductsItem" parameterClass="dto">
+         UPDATE products
+		<dynamic prepend="SET"> 
+            <isNotNull prepend="," property="productid">
+            ProductID = #productid#
+            </isNotNull>
+            <isNotNull prepend="," property="productname">
+            ProductName = #productname#
+            </isNotNull>
+            <isNotNull prepend="," property="categoryid">
+            CategoryID = #categoryid#
+            </isNotNull>
+            <isNotNull prepend="," property="styleid">
+            StyleID = #styleid#
+            </isNotNull>
+            <isNotNull prepend="," property="length">
+            Length = #length#
+            </isNotNull>
+            <isNotNull prepend="," property="width">
+            Width = #width#
+            </isNotNull>
+            <isNotNull prepend="," property="height">
+            Height = #height#
+            </isNotNull>
+            <isNotNull prepend="," property="assetbundlename">
+            AssetBundleName = #assetbundlename#
+            </isNotNull>
+            <isNotNull prepend="," property="assetname">
+            AssetName = #assetname#
+            </isNotNull>
+		</dynamic> 
+	        WHERE 
+				ProductID = #productid#
+	</update>
+	
+</sqlMap>

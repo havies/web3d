@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 角色管理与授权手工映射SQL语句 -->
+<sqlMap namespace="Role">
+	<typeAlias alias="dto" type="com.boidea.framework.core.metatype.impl.BaseDto"/>
+	
+	<!-- 根据角色身份显示两层角色树 -->
+    <select id="queryRolesOrderBySpec" parameterClass="map" resultClass="dto">
+        SELECT 
+           id,text,fatherid
+        FROM vw_gy_roleorderspec a WHERE 1=1 
+        <dynamic>
+            <isNotEmpty prepend="AND" property="fatherid"> 
+                 a.fatherid = #fatherid#
+            </isNotEmpty>
+        </dynamic>
+    </select>
+	
+	<!-- 角色管理与授权-角色列表 -->
+	<select id="queryRolesForManage" parameterClass="map" resultClass="dto">
+		SELECT roleid, rolename, deptid, roletype, rolespec, LOCKED,
+		       (SELECT deptname
+		          FROM gy_dept
+		         WHERE deptid = a.deptid) AS deptname, remark
+		  FROM gy_role a
+		 WHERE a.roletype != '3'
+		<dynamic>
+			<isNotEmpty prepend="AND" property="roletype"> 
+									a.roletype != #roletype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="roleid"> 
+									a.roleid like '$roleid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="deptid"> 
+									a.deptid like '$deptid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="rolename"> 
+									a.rolename like '%$rolename$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="queryParam"> 
+				                    a.rolename like '%$queryParam$%' 
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 角色管理与授权-角色列表 -->
+	<select id="queryRolesForManageForPageCount" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(*) as count
+		  FROM gy_role a WHERE a.roletype != '3'
+		<dynamic>
+			<isNotEmpty prepend="AND" property="roleid"> 
+				a.roleid like '$roleid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="deptid"> 
+				a.deptid like '$deptid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="rolename"> 
+				a.rolename like '%$rolename$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="queryParam"> 
+				a.rolename like '%$queryParam$%'
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 查询该角色已授权的菜单 -->
+	<select id="queryMenusInRoleManage" parameterClass="map" resultClass="dto">
+		SELECT a.menuid, a.authorizelevel,b.menuname
+		  FROM gy_roleauthorize a, gy_menu b
+		 WHERE roleid = #roleid# and a.menuid = b.menuid and b.leaf = '1'
+	</select>
+	
+	<!-- 插入一条角色表记录 -->
+	<insert id="saveRoleItem" parameterClass="dto">
+		INSERT INTO gy_role (
+		   roleid, rolename, deptid, 
+		   roletype, rolespec, remark,locked) 
+		VALUES (#roleid#, #rolename#, #deptid#,
+		    #roletype#, #rolespec#, #remark#,#locked#)
+	</insert>
+    
+	<!-- 删除角色授权表  -->
+	<delete id="deleteEaroleAuthorizeInRoleManage" parameterClass="map" >
+		DELETE FROM gy_roleauthorize
+		      WHERE roleid = #roleid#
+	</delete>
+	
+	<!-- 删除角色表  -->
+	<delete id="deleteEaroleInRoleManage" parameterClass="map" >
+		DELETE FROM gy_role
+		      WHERE roleid = #roleid#
+	</delete>
+	
+	<!-- 删除人员授权表  -->
+	<delete id="deleteEauserauthorizeInRoleManage" parameterClass="map" >
+		DELETE FROM gy_userauthorize
+		      WHERE roleid = #roleid#
+	</delete>
+	
+	<!-- 删除UI元素角色授权表  -->
+	<delete id="deleteEarolemenupartInRoleManage" parameterClass="map" >
+		DELETE FROM gy_rolemenupart
+		      WHERE roleid = #roleid#
+	</delete>
+	
+	<!-- 根据主键更新角色 -->
+	<update id="updateRoleItem" parameterClass="dto">
+         UPDATE gy_role
+		<dynamic prepend="SET"> 
+			<isNotNull prepend="," property="roleid">
+	         roleid = #roleid#
+			</isNotNull>
+			<isNotNull prepend="," property="deptid">
+	         deptid = #deptid#
+			</isNotNull>
+			<isNotNull prepend="," property="rolename">
+	         rolename = #rolename#
+			</isNotNull>
+			<isNotNull prepend="," property="locked">
+	         locked = #locked#
+			</isNotNull>
+			<isNotNull prepend="," property="roletype">
+	         roletype = #roletype#
+			</isNotNull>
+			<isNotNull prepend="," property="rolespec">
+	         rolespec = #rolespec#
+			</isNotNull>
+			<isNotNull prepend="," property="remark">
+	         remark = #remark#
+			</isNotNull>										
+		</dynamic> 
+	        WHERE roleid = #roleid#    
+	</update>
+	
+	<!-- 插入一条角色授权记录 -->
+	<insert id="saveRoleGrantItem" parameterClass="dto">
+		INSERT INTO gy_roleauthorize (
+		   roleid, menuid, authorizelevel, 
+		   authorizeid) 
+		VALUES (#roleid#, #menuid#, #authorizelevel#, #authorizeid#)
+	</insert>
+	
+	<!-- 删除角色授权  -->
+	<delete id="deleteERoleGrants" parameterClass="map" >
+		DELETE FROM gy_roleauthorize
+		      WHERE roleid = #roleid# and authorizelevel = #authorizelevel#
+	</delete>
+	
+	<!-- 根据角色删除角色用户关联信息  -->
+	<delete id="deleteEaUserAuthorizeByRoleId" parameterClass="map" >
+		DELETE FROM gy_userauthorize
+		      WHERE roleid = #roleid#
+	</delete>
+	
+	<!-- 插入一条角色用户关联记录 -->
+	<insert id="saveSelectUser" parameterClass="dto">
+		INSERT INTO gy_userauthorize (
+		   userid, roleid, authorizeid) 
+		VALUES ( #userid#, #roleid#, #authorizeid#)
+	</insert>
+	
+	
+	<!-- 查询登录用户拥有的角色身份列表 -->
+	<select id="queryUserRolespecs" parameterClass="map" resultClass="dto">
+		SELECT distinct a.rolespec,c.codedesc as rolespecName
+		  FROM gy_role a,gy_userauthorize b, gy_code c
+		 WHERE a.roletype != '3' and a.locked != '1'
+		  and a.roleid = b.roleid
+		  and c.field = 'ROLESPEC' and c.code = a.rolespec
+		<dynamic>
+			<isNotEmpty prepend="AND" property="userid"> 
+					b.userid = #userid#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+</sqlMap>

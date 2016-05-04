@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- households管理手工映射SQL语句 -->
+<sqlMap namespace="households">
+	<typeAlias alias="dto" type="com.boidea.framework.core.metatype.impl.BaseDto"/>
+	
+	<!-- households-查询列表 -->
+	<select id="queryhouseholdssForManage" parameterClass="map" resultClass="dto">
+		SELECT   
+		a.HouseID as houseid,
+		a.StyleID as styleid,
+		a.RoomType as roomtype,
+		a.Square as square,
+		a.AssetBundleName as assetbundlename,
+		a.AssetName as assetname
+		    FROM households a
+		   WHERE 1 = 1
+		   	<isNotEmpty prepend="AND" property="houseid"> 
+				 a.HouseID = #houseid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="styleid"> 
+				 a.StyleID like '%$styleid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="roomtype"> 
+				 a.RoomType like '%$roomtype$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="square"> 
+				 a.Square like '%$square$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="assetbundlename"> 
+				 a.AssetBundleName like '%$assetbundlename$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="assetname"> 
+				 a.AssetName like '%$assetname$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ruleCond"> 
+				 $ruleCond$
+			</isNotEmpty>
+			
+			<!-- 列的快速查询 begin-->
+			<dynamic prepend="and" open=" (" close=")">
+				<isNotEmpty prepend="OR" property="or_styleid"> 
+					 a.StyleID like '%$or_styleid$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_roomtype"> 
+					 a.RoomType like '%$or_roomtype$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_square"> 
+					 a.Square like '%$or_square$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_assetbundlename"> 
+					 a.AssetBundleName like '%$or_assetbundlename$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_assetname"> 
+					 a.AssetName like '%$or_assetname$%'
+				</isNotEmpty>
+			</dynamic>
+			<!-- 列的快速查询 end-->
+	</select>
+	
+	<select id="queryhouseholdssCountForManage" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		  FROM households a 
+		 WHERE 1 = 1
+			<isNotEmpty prepend="AND" property="houseid"> 
+				 a.HouseID = #houseid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="styleid"> 
+				 a.StyleID like '%$styleid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="roomtype"> 
+				 a.RoomType like '%$roomtype$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="square"> 
+				 a.Square like '%$square$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="assetbundlename"> 
+				 a.AssetBundleName like '%$assetbundlename$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="assetname"> 
+				 a.AssetName like '%$assetname$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ruleCond"> 
+				 $ruleCond$
+			</isNotEmpty>
+			
+			<!-- 列的快速查询 begin-->
+			<dynamic prepend="and" open=" (" close=")">
+				<isNotEmpty prepend="OR" property="or_styleid"> 
+					 a.StyleID like '%$or_styleid$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_roomtype"> 
+					 a.RoomType like '%$or_roomtype$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_square"> 
+					 a.Square like '%$or_square$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_assetbundlename"> 
+					 a.AssetBundleName like '%$or_assetbundlename$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_assetname"> 
+					 a.AssetName like '%$or_assetname$%'
+				</isNotEmpty>
+			</dynamic>
+			<!-- 列的快速查询 end-->
+	</select>
+	
+	<!-- 插入一条households表记录 -->
+	<insert id="savehouseholdsItem" parameterClass="dto">
+		INSERT INTO households (
+			HouseID,
+			StyleID,
+			RoomType,
+			Square,
+			AssetBundleName,
+			AssetName
+		   ) 
+		VALUES (
+			#houseid#,
+			#styleid#,
+			#roomtype#,
+			#square#,
+			#assetbundlename#,
+			#assetname#
+		)
+	</insert>
+	
+	<!-- 根据主键删除households表  -->
+	<delete id="deletehouseholdsItem" parameterClass="map" >
+		DELETE FROM households
+		WHERE
+			HouseID = #houseid#
+	</delete>
+	
+	<!-- 根据主键更新households表 -->
+	<update id="updatehouseholdsItem" parameterClass="dto">
+         UPDATE households
+		<dynamic prepend="SET"> 
+            <isNotNull prepend="," property="houseid">
+            HouseID = #houseid#
+            </isNotNull>
+            <isNotNull prepend="," property="styleid">
+            StyleID = #styleid#
+            </isNotNull>
+            <isNotNull prepend="," property="roomtype">
+            RoomType = #roomtype#
+            </isNotNull>
+            <isNotNull prepend="," property="square">
+            Square = #square#
+            </isNotNull>
+            <isNotNull prepend="," property="assetbundlename">
+            AssetBundleName = #assetbundlename#
+            </isNotNull>
+            <isNotNull prepend="," property="assetname">
+            AssetName = #assetname#
+            </isNotNull>
+		</dynamic> 
+	        WHERE 
+				HouseID = #houseid#
+	</update>
+	
+</sqlMap>

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 日历事件管理管理手工映射SQL语句 -->
+<sqlMap namespace="GyCalendarEvent">
+    <typeAlias alias="dto" type="com.boidea.framework.core.metatype.impl.BaseDto"/>
+    
+    <!-- 日历事件管理-查询列表 -->
+    <select id="queryGyCalendarEventsForManage" parameterClass="map" resultClass="dto">
+        SELECT   
+        a.CAL_EVENT_ID as id,
+        a.EVENT_TITLE as title,
+        a.IS_ALLDAY as ad,
+        a.WHEN_BEGIN as start,
+        a.WHEN_END as end,
+        a.EVENT_TYPE as cid,
+        a.REMINDER as rem,
+        a.NOTES as notes,
+        a.LOCATION as loc,
+        a.WEB_LINK as url,
+        a.EVENT_OWNER as eventowner,
+        a.OWNER_USERID as owneruserid,
+        a.SCRQ as scrq
+            FROM gy_calendar_event a
+           WHERE 1 = 1
+            <isNotEmpty prepend="AND" property="caleventid"> 
+                 a.CAL_EVENT_ID = #caleventid#
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="eventtitle"> 
+                 a.EVENT_TITLE like '%$eventtitle$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="isallday"> 
+                 a.IS_ALLDAY like '%$isallday$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="whenbegin"> 
+                 a.WHEN_BEGIN like '%$whenbegin$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="whenend"> 
+                 a.WHEN_END like '%$whenend$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="eventtype"> 
+                 a.EVENT_TYPE like '%$eventtype$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="reminder"> 
+                 a.REMINDER like '%$reminder$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="notes"> 
+                 a.NOTES like '%$notes$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="location"> 
+                 a.LOCATION like '%$location$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="weblink"> 
+                 a.WEB_LINK like '%$weblink$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="eventowner"> 
+                 a.EVENT_OWNER like '%$eventowner$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="owneruserid"> 
+                 a.OWNER_USERID = #owneruserid#
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="scrq"> 
+                 a.SCRQ like '%$scrq$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="ruleCond"> 
+                 $ruleCond$
+            </isNotEmpty>
+            
+            <!-- 列的快速查询 begin-->
+            <dynamic prepend="and" open=" (" close=")">
+                <isNotEmpty prepend="OR" property="or_eventtitle"> 
+                     a.EVENT_TITLE like '%$or_eventtitle$%'
+                </isNotEmpty>
+                <isNotEmpty prepend="OR" property="or_isallday"> 
+                     a.IS_ALLDAY like '%$or_isallday$%'
+                </isNotEmpty>
+                <isNotEmpty prepend="OR" property="or_whenbegin"> 
+                     a.WHEN_BEGIN like '%$or_whenbegin$%'
+                </isNotEmpty>
+                <isNotEmpty prepend="OR" property="or_whenend"> 
+                     a.WHEN_END like '%$or_whenend$%'
+                </isNotEmpty>
+                <isNotEmpty prepend="OR" property="or_eventtype"> 
+                     a.EVENT_TYPE like '%$or_eventtype$%'
+                </isNotEmpty>
+                <isNotEmpty prepend="OR" property="or_reminder"> 
+                     a.REMINDER like '%$or_reminder$%'
+                </isNotEmpty>
+                <isNotEmpty prepend="OR" property="or_notes"> 
+                     a.NOTES like '%$or_notes$%'
+                </isNotEmpty>
+                <isNotEmpty prepend="OR" property="or_location"> 
+                     a.LOCATION like '%$or_location$%'
+                </isNotEmpty>
+                <isNotEmpty prepend="OR" property="or_weblink"> 
+                     a.WEB_LINK like '%$or_weblink$%'
+                </isNotEmpty>
+                <isNotEmpty prepend="OR" property="or_eventowner"> 
+                     a.EVENT_OWNER like '%$or_eventowner$%'
+                </isNotEmpty>
+                <isNotEmpty prepend="OR" property="or_owneruserid"> 
+                     a.OWNER_USERID like '%$or_owneruserid$%'
+                </isNotEmpty>
+                <isNotEmpty prepend="OR" property="or_scrq"> 
+                     a.SCRQ like '%$or_scrq$%'
+                </isNotEmpty>
+            </dynamic>
+            <!-- 列的快速查询 end-->
+    </select>
+    
+    <select id="queryGyCalendarEventsCountForManage" parameterClass="map" resultClass="java.lang.Integer">
+        SELECT count(1) as count
+          FROM gy_calendar_event a 
+         WHERE 1 = 1
+            <isNotEmpty prepend="AND" property="caleventid"> 
+                 a.CAL_EVENT_ID = #caleventid#
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="eventtitle"> 
+                 a.EVENT_TITLE like '%$eventtitle$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="isallday"> 
+                 a.IS_ALLDAY like '%$isallday$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="whenbegin"> 
+                 a.WHEN_BEGIN like '%$whenbegin$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="whenend"> 
+                 a.WHEN_END like '%$whenend$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="eventtype"> 
+                 a.EVENT_TYPE like '%$eventtype$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="reminder"> 
+                 a.REMINDER like '%$reminder$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="notes"> 
+                 a.NOTES like '%$notes$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="location"> 
+                 a.LOCATION like '%$location$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="weblink"> 
+                 a.WEB_LINK like '%$weblink$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="eventowner"> 
+                 a.EVENT_OWNER like '%$eventowner$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="owneruserid"> 
+                 a.OWNER_USERID like '%$owneruserid$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="scrq"> 
+                 a.SCRQ like '%$scrq$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="ruleCond"> 
+                 $ruleCond$
+            </isNotEmpty>
+            
+            <!-- 列的快速查询 begin-->
+            <dynamic prepend="and" open=" (" close=")">
+                <isNotEmpty prepend="OR" property="or_eventtitle"> 
+                     a.EVENT_TITLE like '%$or_eventtitle$%'
+                </isNotEmpty>
+                <isNotEmpty prepend="OR" property="or_isallday"> 
+                     a.IS_ALLDAY like '%$or_isallday$%'
+                </isNotEmpty>
+                <isNotEmpty prepend="OR" property="or_whenbegin"> 
+                     a.WHEN_BEGIN like '%$or_whenbegin$%'
+                </isNotEmpty>
+                <isNotEmpty prepend="OR" property="or_whenend"> 
+                     a.WHEN_END like '%$or_whenend$%'
+                </isNotEmpty>
+                <isNotEmpty prepend="OR" property="or_eventtype"> 
+                     a.EVENT_TYPE like '%$or_eventtype$%'
+                </isNotEmpty>
+                <isNotEmpty prepend="OR" property="or_reminder"> 
+                     a.REMINDER like '%$or_reminder$%'
+                </isNotEmpty>
+                <isNotEmpty prepend="OR" property="or_notes"> 
+                     a.NOTES like '%$or_notes$%'
+                </isNotEmpty>
+                <isNotEmpty prepend="OR" property="or_location"> 
+                     a.LOCATION like '%$or_location$%'
+                </isNotEmpty>
+                <isNotEmpty prepend="OR" property="or_weblink"> 
+                     a.WEB_LINK like '%$or_weblink$%'
+                </isNotEmpty>
+                <isNotEmpty prepend="OR" property="or_eventowner"> 
+                     a.EVENT_OWNER like '%$or_eventowner$%'
+                </isNotEmpty>
+                <isNotEmpty prepend="OR" property="or_owneruserid"> 
+                     a.OWNER_USERID like '%$or_owneruserid$%'
+                </isNotEmpty>
+                <isNotEmpty prepend="OR" property="or_scrq"> 
+                     a.SCRQ like '%$or_scrq$%'
+                </isNotEmpty>
+            </dynamic>
+            <!-- 列的快速查询 end-->
+    </select>
+    
+    <!-- 插入一条日历事件管理表记录 -->
+    <insert id="saveGyCalendarEventItem" parameterClass="dto">
+        INSERT INTO gy_calendar_event (
+            CAL_EVENT_ID,
+            EVENT_TITLE,
+            IS_ALLDAY,
+            WHEN_BEGIN,
+            WHEN_END,
+            EVENT_TYPE,
+            REMINDER,
+            NOTES,
+            LOCATION,
+            WEB_LINK,
+            EVENT_OWNER,
+            OWNER_USERID,
+            SCRQ
+           ) 
+        VALUES (
+            #EventId#,
+            #Title#,
+            #IsAllDay#,
+            #StartDate#,
+            #EndDate#,
+            #CalendarId#,
+            #Reminder#,
+            #Notes#,
+            #Location#,
+            #Url#,
+            #eventowner#,
+            #owneruserid#,
+            #scrq#
+        )
+    </insert>
+    
+    <!-- 根据主键删除日历事件管理表  -->
+    <delete id="deleteGyCalendarEventItem" parameterClass="map" >
+        DELETE FROM gy_calendar_event
+        WHERE
+            CAL_EVENT_ID = #EventId#
+    </delete>
+    
+    <!-- 根据主键更新日历事件管理表 -->
+    <update id="updateGyCalendarEventItem" parameterClass="dto">
+         UPDATE gy_calendar_event
+        <dynamic prepend="SET"> 
+            <isNotNull prepend="," property="EventId">
+            CAL_EVENT_ID = #EventId#
+            </isNotNull>
+            <isNotNull prepend="," property="Title">
+            EVENT_TITLE = #Title#
+            </isNotNull>
+            <isNotNull prepend="," property="IsAllDay">
+            IS_ALLDAY = #IsAllDay#
+            </isNotNull>
+            <isNotNull prepend="," property="StartDate">
+            WHEN_BEGIN = #StartDate#
+            </isNotNull>
+            <isNotNull prepend="," property="EndDate">
+            WHEN_END = #EndDate#
+            </isNotNull>
+            <isNotNull prepend="," property="CalendarId">
+            EVENT_TYPE = #CalendarId#
+            </isNotNull>
+            <isNotNull prepend="," property="Reminder">
+            REMINDER = #Reminder#
+            </isNotNull>
+            <isNotNull prepend="," property="Notes">
+            NOTES = #Notes#
+            </isNotNull>
+            <isNotNull prepend="," property="Location">
+            LOCATION = #Location#
+            </isNotNull>
+            <isNotNull prepend="," property="Url">
+            WEB_LINK = #Url#
+            </isNotNull>
+            <isNotNull prepend="," property="eventowner">
+            EVENT_OWNER = #eventowner#
+            </isNotNull>
+            <isNotNull prepend="," property="owneruserid">
+            OWNER_USERID = #owneruserid#
+            </isNotNull>
+            <isNotNull prepend="," property="scrq">
+            SCRQ = #scrq#
+            </isNotNull>
+        </dynamic> 
+            WHERE 
+                CAL_EVENT_ID = #EventId#
+    </update>
+    
+</sqlMap>

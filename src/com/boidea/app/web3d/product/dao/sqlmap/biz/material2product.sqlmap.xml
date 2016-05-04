@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- material2product管理手工映射SQL语句 -->
+<sqlMap namespace="material2product">
+	<typeAlias alias="dto" type="com.boidea.framework.core.metatype.impl.BaseDto"/>
+	
+	<!-- material2product-查询列表 -->
+	<select id="querymaterial2productsForManage" parameterClass="map" resultClass="dto">
+		SELECT   
+		a.UUID as uuid,
+		a.MaterialID as materialid,
+		a.ProductID as productid
+		    FROM material2product a
+		   WHERE 1 = 1
+		   	<isNotEmpty prepend="AND" property="uuid"> 
+				 a.UUID = #uuid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="materialid"> 
+				 a.MaterialID like '%$materialid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="productid"> 
+				 a.ProductID like '%$productid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ruleCond"> 
+				 $ruleCond$
+			</isNotEmpty>
+			
+			<!-- 列的快速查询 begin-->
+			<dynamic prepend="and" open=" (" close=")">
+				<isNotEmpty prepend="OR" property="or_materialid"> 
+					 a.MaterialID like '%$or_materialid$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_productid"> 
+					 a.ProductID like '%$or_productid$%'
+				</isNotEmpty>
+			</dynamic>
+			<!-- 列的快速查询 end-->
+	</select>
+	
+	<select id="querymaterial2productsCountForManage" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		  FROM material2product a 
+		 WHERE 1 = 1
+			<isNotEmpty prepend="AND" property="uuid"> 
+				 a.UUID = #uuid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="materialid"> 
+				 a.MaterialID like '%$materialid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="productid"> 
+				 a.ProductID like '%$productid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ruleCond"> 
+				 $ruleCond$
+			</isNotEmpty>
+			
+			<!-- 列的快速查询 begin-->
+			<dynamic prepend="and" open=" (" close=")">
+				<isNotEmpty prepend="OR" property="or_materialid"> 
+					 a.MaterialID like '%$or_materialid$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_productid"> 
+					 a.ProductID like '%$or_productid$%'
+				</isNotEmpty>
+			</dynamic>
+			<!-- 列的快速查询 end-->
+	</select>
+	
+	<!-- 插入一条material2product表记录 -->
+	<insert id="savematerial2productItem" parameterClass="dto">
+		INSERT INTO material2product (
+			UUID,
+			MaterialID,
+			ProductID
+		   ) 
+		VALUES (
+			#uuid#,
+			#materialid#,
+			#productid#
+		)
+	</insert>
+	
+	<!-- 根据主键删除material2product表  -->
+	<delete id="deletematerial2productItem" parameterClass="map" >
+		DELETE FROM material2product
+		WHERE
+			UUID = #uuid#
+	</delete>
+	
+	<!-- 根据主键更新material2product表 -->
+	<update id="updatematerial2productItem" parameterClass="dto">
+         UPDATE material2product
+		<dynamic prepend="SET"> 
+            <isNotNull prepend="," property="uuid">
+            UUID = #uuid#
+            </isNotNull>
+            <isNotNull prepend="," property="materialid">
+            MaterialID = #materialid#
+            </isNotNull>
+            <isNotNull prepend="," property="productid">
+            ProductID = #productid#
+            </isNotNull>
+		</dynamic> 
+	        WHERE 
+				UUID = #uuid#
+	</update>
+	
+</sqlMap>

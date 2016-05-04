@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- categorys管理手工映射SQL语句 -->
+<sqlMap namespace="categorys">
+	<typeAlias alias="dto" type="com.boidea.framework.core.metatype.impl.BaseDto"/>
+	
+	<!-- categorys-查询列表 -->
+	<select id="querycategoryssForManage" parameterClass="map" resultClass="dto">
+		SELECT   
+		a.CategoryID as categoryid,
+		a.CategoryName as categoryname,
+		a.ParentID as parentid
+		    FROM categorys a
+		   WHERE 1 = 1
+		   	<isNotEmpty prepend="AND" property="categoryid"> 
+				 a.CategoryID = #categoryid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="categoryname"> 
+				 a.CategoryName like '%$categoryname$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="parentid"> 
+				 a.ParentID like '%$parentid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ruleCond"> 
+				 $ruleCond$
+			</isNotEmpty>
+			
+			<!-- 列的快速查询 begin-->
+			<dynamic prepend="and" open=" (" close=")">
+				<isNotEmpty prepend="OR" property="or_categoryname"> 
+					 a.CategoryName like '%$or_categoryname$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_parentid"> 
+					 a.ParentID like '%$or_parentid$%'
+				</isNotEmpty>
+			</dynamic>
+			<!-- 列的快速查询 end-->
+	</select>
+	
+	<select id="querycategoryssCountForManage" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		  FROM categorys a 
+		 WHERE 1 = 1
+			<isNotEmpty prepend="AND" property="categoryid"> 
+				 a.CategoryID = #categoryid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="categoryname"> 
+				 a.CategoryName like '%$categoryname$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="parentid"> 
+				 a.ParentID like '%$parentid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ruleCond"> 
+				 $ruleCond$
+			</isNotEmpty>
+			
+			<!-- 列的快速查询 begin-->
+			<dynamic prepend="and" open=" (" close=")">
+				<isNotEmpty prepend="OR" property="or_categoryname"> 
+					 a.CategoryName like '%$or_categoryname$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_parentid"> 
+					 a.ParentID like '%$or_parentid$%'
+				</isNotEmpty>
+			</dynamic>
+			<!-- 列的快速查询 end-->
+	</select>
+	
+	<!-- 插入一条categorys表记录 -->
+	<insert id="savecategorysItem" parameterClass="dto">
+		INSERT INTO categorys (
+			CategoryID,
+			CategoryName,
+			ParentID
+		   ) 
+		VALUES (
+			#categoryid#,
+			#categoryname#,
+			#parentid#
+		)
+	</insert>
+	
+	<!-- 根据主键删除categorys表  -->
+	<delete id="deletecategorysItem" parameterClass="map" >
+		DELETE FROM categorys
+		WHERE
+			CategoryID = #categoryid#
+	</delete>
+	
+	<!-- 根据主键更新categorys表 -->
+	<update id="updatecategorysItem" parameterClass="dto">
+         UPDATE categorys
+		<dynamic prepend="SET"> 
+            <isNotNull prepend="," property="categoryid">
+            CategoryID = #categoryid#
+            </isNotNull>
+            <isNotNull prepend="," property="categoryname">
+            CategoryName = #categoryname#
+            </isNotNull>
+            <isNotNull prepend="," property="parentid">
+            ParentID = #parentid#
+            </isNotNull>
+		</dynamic> 
+	        WHERE 
+				CategoryID = #categoryid#
+	</update>
+	
+</sqlMap>

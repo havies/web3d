@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 全局数据访问模型 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	
+	<!-- 加载jdbc属性文件 -->
+    <!-- <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> -->
+	<!-- 
+	<bean id="propertyConfigurer" class="com.boidea.framework.core.datasource.EncryptablePropertyPlaceholderConfigurer" >
+		<property name="locations">
+			<list>
+				<value>jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+	 -->
+	 
+	<!-- =================== BoideaFramework平台数据源配置 ==================  -->
+	<!-- Druid 数据源  -->
+	<!-- 
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+	    <property name="url" value="${jdbc.url}" />
+	    <property name="username" value="${jdbc.username}" />
+	    <property name="password" value="${jdbc.password}" />
+	    <property name="initialSize" value="10" />
+	    <property name="minIdle" value="1" /> 
+	    <property name="maxActive" value="100" />
+        <property name="filters" value="stat" />
+	</bean>
+	 -->
+	
+	<!-- JNDI 数据源 -->
+	<!-- 
+	<bean id="dataSource"  class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>java:comp/env/jdbc/bfDS</value>
+		</property>
+	</bean>
+	 -->
+	
+	
+	<!-- 配置平台层面的qlmapClientFactory -->
+	<bean id="sqlMapClientBF" class="com.boidea.framework.core.orm.xibatis.support.SqlMapClientFactoryBean">
+		<property name="configLocations">
+			<list>
+				<value>classpath*:/config/framework/framework.sqlmap.xml</value>
+				<value>classpath*:/config/app/app.sqlmap.xml</value>
+			</list>
+		</property>
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- 配置平台层面的BFReader  -->
+	<bean id="bfReader" class="com.boidea.framework.core.model.dao.impl.ReaderImpl">
+		<property name="sqlMapClient" ref="sqlMapClientBF" />
+	</bean>
+	<!-- 配置平台层面的BFDao  -->
+	<bean id="bfDao" class="com.boidea.framework.core.model.dao.impl.DaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClientBF" />
+	</bean>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    
+	<!-- JDBC事务管理器配置 -->
+	<bean id="transactionManagerBF" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>	
+	<!-- 配置事务代理的基类 -->
+	<bean id="baseTransactionProxyBF" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true">
+		<property name="transactionManager">
+			<ref bean="transactionManagerBF" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="save*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="do*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="insert*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="del*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="drop*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="update*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="edit*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="modify*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="call*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="batch*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="*">PROPAGATION_SUPPORTS,-Exception</prop>
+			</props>
+		</property>
+	</bean> 
+	
+</beans>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- projects管理手工映射SQL语句 -->
+<sqlMap namespace="projects">
+	<typeAlias alias="dto" type="com.boidea.framework.core.metatype.impl.BaseDto"/>
+	
+	<!-- projects-查询列表 -->
+	<select id="queryprojectssForManage" parameterClass="map" resultClass="dto">
+		SELECT   
+		a.ProjectID as projectid,
+		a.Type as type,
+		a.ProjectName as projectname,
+		a.CategoryID as categoryid
+		    FROM projects a
+		   WHERE 1 = 1
+		   	<isNotEmpty prepend="AND" property="projectid"> 
+				 a.ProjectID = #projectid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="type"> 
+				 a.Type like '%$type$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="projectname"> 
+				 a.ProjectName like '%$projectname$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="categoryid"> 
+				 a.CategoryID like '%$categoryid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ruleCond"> 
+				 $ruleCond$
+			</isNotEmpty>
+			
+			<!-- 列的快速查询 begin-->
+			<dynamic prepend="and" open=" (" close=")">
+				<isNotEmpty prepend="OR" property="or_type"> 
+					 a.Type like '%$or_type$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_projectname"> 
+					 a.ProjectName like '%$or_projectname$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_categoryid"> 
+					 a.CategoryID like '%$or_categoryid$%'
+				</isNotEmpty>
+			</dynamic>
+			<!-- 列的快速查询 end-->
+	</select>
+	
+	<select id="queryprojectssCountForManage" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		  FROM projects a 
+		 WHERE 1 = 1
+			<isNotEmpty prepend="AND" property="projectid"> 
+				 a.ProjectID = #projectid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="type"> 
+				 a.Type like '%$type$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="projectname"> 
+				 a.ProjectName like '%$projectname$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="categoryid"> 
+				 a.CategoryID like '%$categoryid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ruleCond"> 
+				 $ruleCond$
+			</isNotEmpty>
+			
+			<!-- 列的快速查询 begin-->
+			<dynamic prepend="and" open=" (" close=")">
+				<isNotEmpty prepend="OR" property="or_type"> 
+					 a.Type like '%$or_type$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_projectname"> 
+					 a.ProjectName like '%$or_projectname$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_categoryid"> 
+					 a.CategoryID like '%$or_categoryid$%'
+				</isNotEmpty>
+			</dynamic>
+			<!-- 列的快速查询 end-->
+	</select>
+	
+	<!-- 插入一条projects表记录 -->
+	<insert id="saveprojectsItem" parameterClass="dto">
+		INSERT INTO projects (
+			ProjectID,
+			Type,
+			ProjectName,
+			CategoryID
+		   ) 
+		VALUES (
+			#projectid#,
+			#type#,
+			#projectname#,
+			#categoryid#
+		)
+	</insert>
+	
+	<!-- 根据主键删除projects表  -->
+	<delete id="deleteprojectsItem" parameterClass="map" >
+		DELETE FROM projects
+		WHERE
+			ProjectID = #projectid#
+	</delete>
+	
+	<!-- 根据主键更新projects表 -->
+	<update id="updateprojectsItem" parameterClass="dto">
+         UPDATE projects
+		<dynamic prepend="SET"> 
+            <isNotNull prepend="," property="projectid">
+            ProjectID = #projectid#
+            </isNotNull>
+			<isNotEmpty prepend="," property="type">
+			Type = #type#
+			</isNotEmpty>
+            <isNotNull prepend="," property="projectname">
+            ProjectName = #projectname#
+            </isNotNull>
+            <isNotNull prepend="," property="categoryid">
+            CategoryID = #categoryid#
+            </isNotNull>
+		</dynamic> 
+	        WHERE 
+				ProjectID = #projectid#
+	</update>
+	
+</sqlMap>

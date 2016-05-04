@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 数据规则管理手工映射SQL语句 -->
+<sqlMap namespace="DataRule">
+	<typeAlias alias="dto" type="com.boidea.framework.core.metatype.impl.BaseDto"/>
+	
+	<!-- 数据规则管理-规则列表 -->
+	<select id="queryDataRulesForManage" parameterClass="map" resultClass="dto">
+		SELECT ruleid, rulename, ruleobject, datacond, LOCKED, remark
+		  FROM gy_datarule a
+		 WHERE 1=1 
+		<dynamic>
+			<isNotEmpty prepend="AND" property="ruleid"> 
+									a.ruleid like '$ruleid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ruleobject"> 
+									a.ruleobject like '$ruleobject$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="rulename"> 
+									a.rulename like '%$rulename$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="queryParam"> 
+				                    a.rulename like '%$queryParam$%' 
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 数据规则管理-规则列表 -->
+	<select id="queryDataRulesForManageForPageCount" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(*) as count
+		  FROM gy_datarule a WHERE 1=1 
+		<dynamic>
+			<isNotEmpty prepend="AND" property="roleid"> 
+				a.ruleid like '$ruleid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="rulename"> 
+				a.rulename like '%$rulename$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="queryParam"> 
+				a.rulename like '%$queryParam$%'
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 插入一条数据规则表记录 -->
+	<insert id="saveDataRuleItem" parameterClass="dto">
+		INSERT INTO gy_datarule (
+		   ruleid, rulename, ruleobject,datacond, 
+		   remark,locked) 
+		VALUES (#ruleid#, #rulename#, #ruleobject#,
+		    #datacond#, #remark#,#locked#)
+	</insert>
+    
+	<!-- 删除数据规则表  -->
+	<delete id="deleteDataRuleInRuleManage" parameterClass="map" >
+		DELETE FROM gy_datarule
+		      WHERE ruleid = #ruleid#
+	</delete>
+	
+	<!-- 根据主键更新数据规则 -->
+	<update id="updateDataRuleItem" parameterClass="dto">
+         UPDATE gy_datarule
+		<dynamic prepend="SET"> 
+			<isNotNull prepend="," property="ruleid">
+	         ruleid = #ruleid#
+			</isNotNull>
+			<isNotNull prepend="," property="rulename">
+	         rulename = #rulename#
+			</isNotNull>
+			<isNotNull prepend="," property="locked">
+	         locked = #locked#
+			</isNotNull>
+			<isNotNull prepend="," property="ruleobject">
+	         ruleobject = #ruleobject#
+			</isNotNull>
+			<isNotNull prepend="," property="datacond">
+	         datacond = #datacond#
+			</isNotNull>
+			<isNotNull prepend="," property="remark">
+	         remark = #remark#
+			</isNotNull>										
+		</dynamic> 
+	        WHERE ruleid = #ruleid#    
+	</update>
+	
+	
+	<!-- 查询该角色和菜单已授权的数据规则 -->
+	<select id="queryRoleRules" parameterClass="map" resultClass="dto">
+		SELECT a.ruleid, a.rulename, a.ruleobject, a.remark, b.roleid, b.menuid
+		  FROM gy_datarule a, gy_datarulerole b
+		 WHERE a.ruleid = b.ruleid and b.roleid = #roleid# and b.menuid = #menuid#
+	</select>
+	<!-- 插入一条角色授权记录 -->
+	<insert id="saveRuleRoleGrantItem" parameterClass="dto">
+		INSERT INTO gy_datarulerole (
+		   ruleroleid, roleid, ruleid, menuid) 
+		VALUES (#ruleroleid#, #roleid#, #ruleid#, #menuid#)
+	</insert>
+	<!-- 删除角色授权表  -->
+	<delete id="deleteRuleRoles" parameterClass="map" >
+		DELETE FROM gy_datarulerole
+		      WHERE roleid = #roleid# and menuid = #menuid#
+	</delete>
+	
+	
+	<!-- 查询该人员和菜单已授权的数据规则 -->
+	<select id="queryUserRules" parameterClass="map" resultClass="dto">
+		SELECT a.ruleid, a.rulename, a.ruleobject, a.remark, b.userid, b.menuid
+		  FROM gy_datarule a, gy_dataruleuser b
+		 WHERE a.ruleid = b.ruleid and b.userid = #userid# and b.menuid = #menuid#
+	</select>
+	<!-- 插入一条角色用户关联记录 -->
+	<insert id="saveSelectUser" parameterClass="dto">
+		INSERT INTO gy_dataruleuser (
+		   ruleuserid, ruleid, userid, menuid) 
+		VALUES ( #ruleuserid#, #ruleid#, #userid#, #menuid#)
+	</insert>
+	<!-- 删除人员授权表  -->
+	<delete id="deleteRuleUsers" parameterClass="map" >
+		DELETE FROM gy_dataruleuser
+		      WHERE userid = #userid# and menuid = #menuid#
+	</delete>
+	
+	
+	<!-- 得到用户针对某个菜单已授权的数据规则（根据角色） -->
+	<select id="getDataRuleListByRoleAuth" parameterClass="map" resultClass="dto">
+		SELECT a.ruleid, a.rulename, a.ruleobject, a.datacond, a.LOCKED, a.remark
+		  FROM gy_datarule a,gy_datarulerole b
+		  where a.locked = '0'
+		  		and a.ruleid = b.ruleid 
+			  <dynamic>
+			  	<isNotEmpty prepend="AND" property="ruleobject"> 
+					 a.ruleobject = #ruleobject#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="menuid"> 
+					 b.menuid = #menuid#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="userid"> 
+					b.roleid IN (SELECT roleid
+			                                 FROM gy_userauthorize
+			                                WHERE userid  = #userid#)
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="rolespec"> 
+					b.roleid IN (SELECT roleid
+			                                 FROM gy_role
+			                                WHERE rolespec  = #rolespec#)
+				</isNotEmpty>
+			</dynamic>
+	</select>
+	<!-- 得到用户针对某个菜单已授权的数据规则（根据用户） -->
+	<select id="getDataRuleListByUserAuth" parameterClass="map" resultClass="dto">
+		SELECT a.ruleid, a.rulename, a.ruleobject, a.datacond, a.LOCKED, a.remark
+		  FROM gy_datarule a,gy_dataruleuser b
+		  where a.locked = '0'
+		  		and a.ruleid = b.ruleid 
+			<dynamic>
+				<isNotEmpty prepend="AND" property="ruleobject"> 
+					 a.ruleobject = #ruleobject#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="menuid"> 
+					 b.menuid = #menuid#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="userid"> 
+					b.userid  = #userid#
+				</isNotEmpty>
+			</dynamic>
+	</select>
+</sqlMap>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 信息发布指派角色管理手工映射SQL语句 -->
+<sqlMap namespace="GyInformationRole">
+	<typeAlias alias="dto" type="com.boidea.framework.core.metatype.impl.BaseDto"/>
+	
+	<!-- 信息发布指派角色-查询列表 -->
+	<select id="queryGyInformationRolesForManage" parameterClass="map" resultClass="dto">
+		SELECT   
+		a.information_role_id as informationroleid,
+		a.information_id as informationid,
+		a.role_id as roleid,
+		a.scrq as scrq
+		    FROM gy_information_role a
+		   WHERE 1 = 1
+		   	<isNotEmpty prepend="AND" property="informationroleid"> 
+				 a.information_role_id = #informationroleid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="informationid"> 
+				 a.information_id = #informationid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="roleid"> 
+				 a.role_id like '%$roleid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="scrq"> 
+				 a.scrq like '%$scrq$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ruleCond"> 
+				 $ruleCond$
+			</isNotEmpty>
+			
+			<!-- 列的快速查询 begin-->
+			<dynamic prepend="and" open=" (" close=")">
+				<isNotEmpty prepend="OR" property="or_informationid"> 
+					 a.information_id like '%$or_informationid$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_roleid"> 
+					 a.role_id like '%$or_roleid$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_scrq"> 
+					 a.scrq like '%$or_scrq$%'
+				</isNotEmpty>
+			</dynamic>
+			<!-- 列的快速查询 end-->
+	</select>
+	
+	<select id="queryGyInformationRolesCountForManage" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		  FROM gy_information_role a 
+		 WHERE 1 = 1
+			<isNotEmpty prepend="AND" property="informationroleid"> 
+				 a.information_role_id = #informationroleid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="informationid"> 
+				 a.information_id like '%$informationid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="roleid"> 
+				 a.role_id like '%$roleid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="scrq"> 
+				 a.scrq like '%$scrq$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ruleCond"> 
+				 $ruleCond$
+			</isNotEmpty>
+			
+			<!-- 列的快速查询 begin-->
+			<dynamic prepend="and" open=" (" close=")">
+				<isNotEmpty prepend="OR" property="or_informationid"> 
+					 a.information_id like '%$or_informationid$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_roleid"> 
+					 a.role_id like '%$or_roleid$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_scrq"> 
+					 a.scrq like '%$or_scrq$%'
+				</isNotEmpty>
+			</dynamic>
+			<!-- 列的快速查询 end-->
+	</select>
+	
+	<!-- 插入一条信息发布指派角色表记录 -->
+	<insert id="saveGyInformationRoleItem" parameterClass="dto">
+		INSERT INTO gy_information_role (
+			information_role_id,
+			information_id,
+			role_id,
+			scrq
+		   ) 
+		VALUES (
+			#informationroleid#,
+			#informationid#,
+			#roleid#,
+			#scrq#
+		)
+	</insert>
+	
+	<!-- 根据信息ID删除信息发布指派角色表  -->
+	<delete id="deleteGyInformationRoleItem" parameterClass="map" >
+		DELETE FROM gy_information_role
+		WHERE
+			information_id = #informationid#
+	</delete>
+	
+	<!-- 根据主键更新信息发布指派角色表 -->
+	<update id="updateGyInformationRoleItem" parameterClass="dto">
+         UPDATE gy_information_role
+		<dynamic prepend="SET"> 
+            <isNotNull prepend="," property="informationroleid">
+            information_role_id = #informationroleid#
+            </isNotNull>
+            <isNotNull prepend="," property="informationid">
+            information_id = #informationid#
+            </isNotNull>
+            <isNotNull prepend="," property="roleid">
+            role_id = #roleid#
+            </isNotNull>
+            <isNotNull prepend="," property="scrq">
+            scrq = #scrq#
+            </isNotNull>
+		</dynamic> 
+	        WHERE 
+				information_role_id = #informationroleid#
+	</update>
+	
+</sqlMap>

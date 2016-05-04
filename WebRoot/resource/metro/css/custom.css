@@ -1,0 +1,221 @@
+<style type="text/css">
+
+	.clearfix:after {
+    content: ".";
+    height: 0px;
+    display: block;
+    visibility: hidden;
+    clear: both;
+}	
+	.project_list_panel {
+    width: 100%;
+    margin: 10px 18px 0px 0px;
+    list-style-type:none;
+	}
+
+	.project_list_item {
+		    cursor: pointer;
+		    width: 252px;
+		    height: 170px;
+		    float: left;
+		    border: 1px solid #DDD;
+		    margin: 0px 0px 40px 50px;
+		    position: relative;
+		    border-radius: 5px;
+		    text-align: center;
+		}
+
+.radius_img30 {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    display: inline-block;
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 30px;
+    text-align: center;
+    vertical-align: middle;
+    color: #FFF;
+}
+.mark_star {
+    background-position: -626px -276px;
+}
+
+.un_mark_star {
+    background-image: url('../../images/project/icos_20.png');
+    background-position: -626px -299px;
+    width: 16px;
+    height: 15px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.project_list_item_img {
+    margin: 15px auto 0px;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    border: 2px solid #FFF;
+}
+
+.project_list_item_title {
+    font-size: 16px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px;
+    border-bottom: 1px solid #EEE;
+    display: block;
+    word-break: break-all;
+    height: 80px;
+    line-height: 80px;
+    vertical-align: middle;
+    background-color: #02B4FE;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.project_list_item_title_span {
+    color: #333;
+    position: relative;
+    line-height: 24px;
+    display: inline-block;
+    padding: 0px 5px 0px 0px;
+    vertical-align: middle;
+}
+
+.project_list_item_middle {
+    font-size: 12px;
+    height: 45px;
+    line-height: 45px;
+}
+
+.project_list_item_buttom {
+    font-size: 12px;
+    position: relative;
+    height: 45px;
+    line-height: 45px; 
+    background-color: #D9D9D9;
+    border-radius: 0px 0px 5px 5px;
+}
+
+.project_list_item_detail_time {
+    color: #AAA;
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+.count {
+    color: #FF9C00;
+    font-family: Arial;
+}
+
+
+.project_list_item_detail_discuss {
+    color: #AAA;
+    margin-right: 10px;
+}
+
+.project_list_item_detail_member {
+    color: #AAA;
+}
+
+.project_list_create {
+    height: 76px;
+    background-color: #F7F7F7;
+    line-height: 76px;
+    text-align: center;
+    color: #AAA;
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.project_more_info_btn {
+    width: 80px;
+    display: inline-block;
+    margin-left: 30px;
+    cursor: pointer;
+}
+
+.u4_normal {
+    background-image: url('../image/avatar1.jpg');
+}
+
+#u4_img {
+    position:absolute;
+    left:10px;
+    top:10px;
+    width:60px;
+    height:60px;
+    border-radius: 30px;
+}
+
+.u20 {
+    position: absolute;
+    left: 100px;
+    top: 0px;
+    width: 45px;
+    height: 32px;
+    font-family: 隶书;
+    font-size: 28px;
+    text-align: center;
+    line-height:32px;
+    word-wrap: break-word;
+}
+
+
+.u21 {
+    position: absolute;
+    left: 100px;
+    top: 10px;
+    width: 100px;
+    height: 20px;
+    font-family: Arial;
+    text-align: left;
+    word-wrap: break-word;
+}
+
+.project_list_tab{
+    height:44px;
+    margin-left:50px;
+    *zoom:1;
+     list-style-type:none;
+}
+
+.project_list_tab:before,.project_list_tab:after{
+    display:table;
+    content:"";
+    line-height:0
+}
+
+.project_list_tab:after{
+    clear:both
+}
+
+.project_list_tab li{
+    float:left;
+    color:#aaa;
+    font-size:14px;
+    margin:0 30px 0 0;
+    padding-bottom:5px;
+    cursor:pointer
+}
+
+.project_list_tab li a{
+    color:#aaa;
+    cursor:pointer
+}
+
+.project_list_tab li:hover{
+    border-bottom:2px solid #555
+}
+
+.project_list_tab .active{
+    color:#555;
+    font-weight:700;
+    position:relative;
+    border-bottom:2px solid #555
+}
+
+.project_list_tab .active a{
+    color:#555;
+    cursor:pointer
+}
+</style>

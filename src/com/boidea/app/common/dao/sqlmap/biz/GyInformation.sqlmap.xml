@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 信息发布管理管理手工映射SQL语句 -->
+<sqlMap namespace="GyInformation">
+	<typeAlias alias="dto" type="com.boidea.framework.core.metatype.impl.BaseDto"/>
+	
+	<!-- 信息发布管理-查询列表 -->
+	<select id="queryGyInformationsForManage" parameterClass="map" resultClass="dto">
+		SELECT   
+		a.information_id as informationid,
+		a.title as title,
+		a.module as module,
+		a.content as content,
+		a.attachment as attachment,
+		a.istop as istop,
+		a.read_count as readcount,
+		a.create_user as createuser,
+		a.create_time as createtime,
+		a.update_user as updateuser,
+		a.update_time as updatetime,
+		a.assignrolename as assignrolename,
+		a.assignroleid as assignroleid
+		    FROM gy_information a
+		   WHERE 1 = 1
+		   	<isNotEmpty prepend="AND" property="informationid"> 
+				 a.information_id = #informationid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="title"> 
+				 a.title like '%$title$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="module"> 
+				 a.module like '%$module$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="content"> 
+				 a.content like '%$content$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="attachment"> 
+				 a.attachment like '%$attachment$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="istop"> 
+				 a.istop like '%$istop$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="readcount"> 
+				 a.read_count like '%$readcount$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="createuser"> 
+				 a.create_user like '%$createuser$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="createtime"> 
+				 a.create_time like '%$createtime$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="updateuser"> 
+				 a.update_user like '%$updateuser$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="updatetime"> 
+				 a.update_time like '%$updatetime$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="assignrolename"> 
+                 a.assignrolename like '%$assignrolename$%'
+            </isNotEmpty>
+			<isNotEmpty prepend="AND" property="ruleCond"> 
+				 $ruleCond$
+			</isNotEmpty>
+			
+			<!-- 列的快速查询 begin-->
+			<dynamic prepend="and" open=" (" close=")">
+				<isNotEmpty prepend="OR" property="or_title"> 
+					 a.title like '%$or_title$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_module"> 
+					 a.module like '%$or_module$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_content"> 
+					 a.content like '%$or_content$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_attachment"> 
+					 a.attachment like '%$or_attachment$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_istop"> 
+					 a.istop like '%$or_istop$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_readcount"> 
+					 a.read_count like '%$or_readcount$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_createuser"> 
+					 a.create_user like '%$or_createuser$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_createtime"> 
+					 a.create_time like '%$or_createtime$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_updateuser"> 
+					 a.update_user like '%$or_updateuser$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_updatetime"> 
+					 a.update_time like '%$or_updatetime$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_assignrolename"> 
+                     a.assignrolename like '%$or_assignrolename$%'
+                </isNotEmpty>
+			</dynamic>
+			<!-- 列的快速查询 end-->
+		order by a.istop desc,a.update_time desc
+	</select>
+	
+	<select id="queryGyInformationsCountForManage" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		  FROM gy_information a 
+		 WHERE 1 = 1
+			<isNotEmpty prepend="AND" property="informationid"> 
+				 a.information_id = #informationid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="title"> 
+				 a.title like '%$title$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="module"> 
+				 a.module like '%$module$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="content"> 
+				 a.content like '%$content$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="attachment"> 
+				 a.attachment like '%$attachment$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="istop"> 
+				 a.istop like '%$istop$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="readcount"> 
+				 a.read_count like '%$readcount$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="createuser"> 
+				 a.create_user like '%$createuser$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="createtime"> 
+				 a.create_time like '%$createtime$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="updateuser"> 
+				 a.update_user like '%$updateuser$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="updatetime"> 
+				 a.update_time like '%$updatetime$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="assignrolename"> 
+                 a.assignrolename like '%$assignrolename$%'
+            </isNotEmpty>
+			<isNotEmpty prepend="AND" property="ruleCond"> 
+				 $ruleCond$
+			</isNotEmpty>
+			
+			<!-- 列的快速查询 begin-->
+			<dynamic prepend="and" open=" (" close=")">
+				<isNotEmpty prepend="OR" property="or_title"> 
+					 a.title like '%$or_title$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_module"> 
+					 a.module like '%$or_module$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_content"> 
+					 a.content like '%$or_content$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_attachment"> 
+					 a.attachment like '%$or_attachment$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_istop"> 
+					 a.istop like '%$or_istop$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_readcount"> 
+					 a.read_count like '%$or_readcount$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_createuser"> 
+					 a.create_user like '%$or_createuser$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_createtime"> 
+					 a.create_time like '%$or_createtime$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_updateuser"> 
+					 a.update_user like '%$or_updateuser$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_updatetime"> 
+					 a.update_time like '%$or_updatetime$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="OR" property="or_assignrolename"> 
+                     a.assignrolename like '%$or_assignrolename$%'
+                </isNotEmpty>
+			</dynamic>
+			<!-- 列的快速查询 end-->
+	</select>
+	
+	<!-- 插入一条信息发布管理表记录 -->
+	<insert id="saveGyInformationItem" parameterClass="dto">
+		INSERT INTO gy_information (
+			information_id,
+			title,
+			module,
+			content,
+			attachment,
+			istop,
+			read_count,
+			create_user,
+			create_time,
+			update_user,
+			update_time,
+			assignrolename,
+			assignroleid
+		   ) 
+		VALUES (
+			#informationid#,
+			#title#,
+			#module#,
+			#content#,
+			#attachment#,
+			#istop#,
+			#readcount#,
+			#createuser#,
+			#createtime#,
+			#updateuser#,
+			#updatetime#,
+			#assignrolename#,
+			#assignroleid#
+		)
+	</insert>
+	
+	<!-- 根据主键删除信息发布管理表  -->
+	<delete id="deleteGyInformationItem" parameterClass="map" >
+		DELETE FROM gy_information
+		WHERE
+			information_id = #informationid#
+	</delete>
+	
+	<!-- 根据主键更新信息发布管理表 -->
+	<update id="updateGyInformationItem" parameterClass="dto">
+         UPDATE gy_information
+		<dynamic prepend="SET"> 
+            <isNotNull prepend="," property="informationid">
+            information_id = #informationid#
+            </isNotNull>
+            <isNotNull prepend="," property="title">
+            title = #title#
+            </isNotNull>
+            <isNotNull prepend="," property="module">
+            module = #module#
+            </isNotNull>
+            <isNotNull prepend="," property="content">
+            content = #content#
+            </isNotNull>
+            <isNotNull prepend="," property="attachment">
+            attachment = #attachment#
+            </isNotNull>
+            <isNotNull prepend="," property="istop">
+            istop = #istop#
+            </isNotNull>
+			<isNotEmpty prepend="," property="readcount">
+			read_count = #readcount#
+			</isNotEmpty>
+            <isNotNull prepend="," property="createuser">
+            create_user = #createuser#
+            </isNotNull>
+            <isNotNull prepend="," property="createtime">
+            create_time = #createtime#
+            </isNotNull>
+            <isNotNull prepend="," property="updateuser">
+            update_user = #updateuser#
+            </isNotNull>
+            <isNotNull prepend="," property="updatetime">
+            update_time = #updatetime#
+            </isNotNull>
+            <isNotNull prepend="," property="assignrolename">
+            assignrolename = #assignrolename#
+            </isNotNull>
+            <isNotNull prepend="," property="assignroleid">
+            assignroleid = #assignroleid#
+            </isNotNull>
+		</dynamic> 
+	        WHERE 
+				information_id = #informationid#
+	</update>
+	
+</sqlMap>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 业务系统 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	
+	<!-- 公用服务组件  -->
+	<bean id="commonService" parent="baseTransactionProxyBF">
+		<property name="target">
+			<bean class="com.boidea.app.common.service.impl.CommonServiceImpl">
+			    <property name="bfDao" ref="bfDao" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 信息发布管理-->
+    <bean id="gyinformationService" parent="baseTransactionProxyBF">
+        <property name="target">
+            <bean class="com.boidea.app.common.service.impl.GyInformationServiceImpl">
+                <property name="bfDao" ref="bfDao" />
+            </bean>
+        </property>
+    </bean>
+    
+	<!-- 日历事件管理-->
+    <bean id="gycalendareventService" parent="baseTransactionProxyBF">
+        <property name="target">
+            <bean class="com.boidea.app.common.service.impl.GyCalendarEventServiceImpl">
+                <property name="bfDao" ref="bfDao" />
+            </bean>
+        </property>
+    </bean>
+    
+
+	<!-- categorys-->
+	<bean id="categorysService" parent="baseTransactionProxyBF">
+		<property name="target">
+			<bean class="com.boidea.app.web3d.category.service.impl.categorysServiceImpl">
+			    <property name="bfDao" ref="bfDao" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- projects-->
+	<bean id="projectsService" parent="baseTransactionProxyBF">
+		<property name="target">
+			<bean class="com.boidea.app.web3d.project.service.impl.projectsServiceImpl">
+			    <property name="bfDao" ref="bfDao" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="project2userService" parent="baseTransactionProxyBF">
+		<property name="target">
+			<bean class="com.boidea.app.web3d.project.service.impl.project2userServiceImpl">
+			    <property name="bfDao" ref="bfDao" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- products-->
+	<bean id="productsService" parent="baseTransactionProxyBF">
+		<property name="target">
+			<bean class="com.boidea.app.web3d.product.service.impl.productsServiceImpl">
+			    <property name="bfDao" ref="bfDao" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- materials-->
+	<bean id="materialsService" parent="baseTransactionProxyBF">
+		<property name="target">
+			<bean class="com.boidea.app.web3d.product.service.impl.materialsServiceImpl">
+			    <property name="bfDao" ref="bfDao" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- material2product-->
+	<bean id="material2productService" parent="baseTransactionProxyBF">
+		<property name="target">
+			<bean class="com.boidea.app.web3d.product.service.impl.material2productServiceImpl">
+			    <property name="bfDao" ref="bfDao" />
+			</bean>
+		</property>
+	</bean>	
+
+	<!-- housestyle-->
+	<bean id="housestyleService" parent="baseTransactionProxyBF">
+		<property name="target">
+			<bean class="com.boidea.app.web3d.housestyle.service.impl.housestyleServiceImpl">
+			    <property name="bfDao" ref="bfDao" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- households-->
+	<bean id="householdsService" parent="baseTransactionProxyBF">
+		<property name="target">
+			<bean class="com.boidea.app.web3d.households.service.impl.householdsServiceImpl">
+			    <property name="bfDao" ref="bfDao" />
+			</bean>
+		</property>
+	</bean>	
+		    
+</beans>
+
